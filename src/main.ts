@@ -11,6 +11,7 @@ const app = express();
 app.use(cors());
 
 const mongoURI: string = process.env.mongo ?? "";
+const port: number = parseInt(process.env.mongo) ?? 3001;
 
 
 // Connect to MongoDB Atlas
@@ -74,6 +75,6 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Start the server
-app.listen(80, () => {
+app.listen(port, () => {
   console.log('Server listening on port 80');
 });
