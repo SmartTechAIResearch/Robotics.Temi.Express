@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 
 const mongoURI: string = process.env.mongo ?? "";
-const port: number = parseInt(process.env.mongo) ?? 3001;
+const port: number = parseInt(process.env.mongo ?? "3001");
 
 
 // Connect to MongoDB Atlas
