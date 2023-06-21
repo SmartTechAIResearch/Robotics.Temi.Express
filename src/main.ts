@@ -1,12 +1,27 @@
 import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import {iLocationData, iStepperData} from './interfaces/interface';
+
+import { Server } from "socket.io";
+import { createServer } from "http";
+import socketHandler from "./socket";
+
 require('dotenv').config();
 const cors = require('cors');
 
 
 // Create an Express app
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+  perMessageDeflate: false,
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+socketHandler(io);
 
 app.use(cors());
 
@@ -78,3 +93,7 @@ app.get('/', (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log('Server listening on port', port);
 });
+
+server.listen(3002, () => {
+  console.log("Socket IO is listening on port 3002");
+})
